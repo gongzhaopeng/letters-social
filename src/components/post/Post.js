@@ -7,3 +7,4 @@ import Image from './Image';
 import Link from './Link';
 import PostActionSection from './PostActionSection';
 import Comments from '../comment/Comments';
+import Loader from '../Loader';
