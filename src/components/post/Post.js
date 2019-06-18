@@ -1,14 +1,14 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import * as API from '../../shared/http';
-import UserHeader from './UserHeader'
-import Content from './Content';
-import Image from './Image';
-import Link from './Link';
-import PostActionSection from './PostActionSection';
-import Comments from '../comment/Comments';
-import Loader from '../Loader';
+import * as API from "../../shared/http";
+import UserHeader from "./UserHeader";
+import Content from "./Content";
+import Image from "./Image";
+import Link from "./Link";
+import PostActionSection from "./PostActionSection";
+import Comments from "../comment/Comments";
+import Loader from "../Loader";
 
 export class Post extends Component {
     static propTypes = {
@@ -44,7 +44,7 @@ export class Post extends Component {
         API.fetchPost(id)
             .then(res => res.json())
             .then(post => {
-                this.setState(() => ({post}));
+                this.setState(() => ({ post }));
             });
     }
 
@@ -56,6 +56,16 @@ export class Post extends Component {
             <div className="post">
                 <UserHeader date={this.state.post.date}
                             user={this.state.post.user}/>
+                <Content post={this.state.post}/>
+                <Image post={this.state.post}/>
+                <Link link={this.state.post.link}/>
+                <PostActionSection showComments={this.state.showComments}/>
+                <Comments
+                    comments={this.state.comments}
+                    show={this.state.showComments}
+                    post={this.state.post}
+                    user={this.props.user}
+                />
             </div>
         );
     }

@@ -7,8 +7,10 @@ import Nav from "./components/nav/navbar";
 import Loader from "./components/Loader";
 import * as API from "./shared/http";
 
+import Post from "./components/post/Post";
 import Ad from "./components/ad/Ad";
 import Welcome from "./components/welcome/Welcome";
+import CreatePost from "./components/post/Create";
 
 /**
  * The app component serves as a root for the project and renders either children,
@@ -27,6 +29,7 @@ class App extends Component {
                 .ENDPOINT}/posts?_page=1&_sort=date&_order=DESC&_embed=comments&_expand=user&_embed=likes`
         };
         this.getPosts = this.getPosts.bind(this);
+        this.createNewPost = this.createNewPost.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +67,23 @@ class App extends Component {
             });
     }
 
+    createNewPost(post) {
+        return API.createPost(post)
+            .then(res => res.json())
+            .then(newPost => {
+                this.setState(prevState => {
+                    console.log(newPost);
+                    return {
+                        posts: orderBy(prevState.posts.concat(newPost),
+                            "date", "desc")
+                    };
+                });
+            }).catch(err => {
+                console.log(err);
+                this.setState(() => ({ error: err }));
+            });
+    }
+
     render() {
         return (
             <div className="app">
@@ -76,6 +96,15 @@ class App extends Component {
                     <div className="home">
                         <Welcome key="welcome"/>
                         <div>
+                            <CreatePost onSubmit={this.createNewPost}/>
+                            {this.state.posts.length && (
+                                <div className="posts">
+                                    {this.state.posts.map(({ id }) => (
+                                        <Post id={id} key={id}
+                                              user={this.props.user}/>
+                                    ))}
+                                </div>
+                            )}
                             <button className="block" onClick={this.getPosts}>
                                 Load more posts
                             </button>
