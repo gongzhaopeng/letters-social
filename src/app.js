@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import parseLinkHeader from "parse-link-header";
 import orderBy from "lodash/orderBy";
@@ -62,7 +62,7 @@ class App extends Component {
                         }));
                     })
                     .catch(err => {
-                        this.setState(() => ({ error: err }));
+                        this.setState(() => ({error: err}));
                     });
             });
     }
@@ -72,15 +72,13 @@ class App extends Component {
             .then(res => res.json())
             .then(newPost => {
                 this.setState(prevState => {
-                    console.log(newPost);
                     return {
                         posts: orderBy(prevState.posts.concat(newPost),
                             "date", "desc")
                     };
                 });
             }).catch(err => {
-                console.log(err);
-                this.setState(() => ({ error: err }));
+                this.setState(() => ({error: err}));
             });
     }
 
@@ -89,38 +87,38 @@ class App extends Component {
             <div className="app">
                 <Nav/>
                 {this.state.loading ? (
-                    <div className="loading">
-                        <Loader/>
-                    </div>
-                ) : (
-                    <div className="home">
-                        <Welcome key="welcome"/>
-                        <div>
-                            <CreatePost onSubmit={this.createNewPost}/>
-                            {this.state.posts.length && (
-                                <div className="posts">
-                                    {this.state.posts.map(({ id }) => (
-                                        <Post id={id} key={id}
-                                              user={this.props.user}/>
-                                    ))}
-                                </div>
-                            )}
-                            <button className="block" onClick={this.getPosts}>
-                                Load more posts
-                            </button>
+                        <div className="loading">
+                            <Loader/>
                         </div>
-                        <div>
-                            <Ad
-                                url="https://ifelse.io/book"
-                                imageUrl="/static/assets/ads/ria.png"
-                            />
-                            <Ad
-                                url="https://ifelse.io/book"
-                                imageUrl="/static/assets/ads/orly.jpg"
-                            />
+                    ) : (
+                        <div className="home">
+                            <Welcome key="welcome"/>
+                            <div>
+                                <CreatePost onSubmit={this.createNewPost}/>
+                                {this.state.posts.length && (
+                                    <div className="posts">
+                                        {this.state.posts.map(({id}) => (
+                                            <Post id={id} key={id}
+                                                  user={this.props.user}/>
+                                        ))}
+                                    </div>
+                                )}
+                                <button className="block" onClick={this.getPosts}>
+                                    Load more posts
+                                </button>
+                            </div>
+                            <div>
+                                <Ad
+                                    url="https://ifelse.io/book"
+                                    imageUrl="/static/assets/ads/ria.png"
+                                />
+                                <Ad
+                                    url="https://ifelse.io/book"
+                                    imageUrl="/static/assets/ads/orly.jpg"
+                                />
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
             </div>
         );
     }

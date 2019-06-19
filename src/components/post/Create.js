@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 
 import Filter from "bad-words";
@@ -34,11 +34,16 @@ class CreatePost extends Component {
         if (!this.state.valid) {
             return;
         }
-        const newPost = {
-            content: this.state.content
-        };
-        this.props.onSubmit(newPost);
-        console.log(this.state);
+        if (this.props.onSubmit) {
+            const newPost = {
+                content: this.state.content
+            };
+            this.props.onSubmit(newPost);
+            this.setState(() => ({
+                content: '',
+                valid: false
+            }));
+        }
     }
 
     render() {
