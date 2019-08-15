@@ -27,6 +27,16 @@ export default class DisplayMap extends Component {
         displayOnly: PropTypes.bool
     };
 
+    static defaultProps = {
+        displayOnly: true,
+        location: {
+            lat: 34.1535641,
+            lng: -118.1428115,
+            name: null
+        }
+    };
+
+
     render() {
         return [
             <div key="displayMap" className="displayMap">
