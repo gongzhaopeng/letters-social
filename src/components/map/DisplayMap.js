@@ -1,8 +1,8 @@
 /**
  * Created by gongzhaopeng on 2019/6/20.
  */
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class DisplayMap extends Component {
     constructor(props) {
@@ -36,6 +36,24 @@ export default class DisplayMap extends Component {
         }
     };
 
+    componentDidMount() {
+        this.L = window.L;
+        if (this.state.location.lng && this.state.location.lat) {
+            this.ensureMapExists();
+        }
+    }
+
+    ensureMapExists() {
+        if (this.state.mapLoaded) return;
+        this.map = this.L.mapbox.map(this.mapNode, "mapbox.streets", {
+            zoomControl: false,
+            scrollWheelZoom: false
+        });
+        this.map.setView(this.L.latLng(this.state.location.lat,
+            this.state.location.lng), 12);
+
+        this.setState(() => ({ mapLoaded: true }));
+    }
 
     render() {
         return [
