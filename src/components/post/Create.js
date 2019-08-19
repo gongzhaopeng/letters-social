@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import Filter from "bad-words";
+import classnames from 'classnames';
 
-const filter = new Filter();
+import DisplayMap from '../map/DisplayMap';
+import LocationTypeAhead from '../map/LocationTypeAhead';
 
 class CreatePost extends Component {
     static propTypes = {
@@ -34,7 +36,7 @@ class CreatePost extends Component {
     }
 
     handlePostChange(event) {
-        const content = filter.clean(event.target.value);
+        const content = this.filter.clean(event.target.value);
         this.setState(() => ({
             content,
             valid: content.length <= 280

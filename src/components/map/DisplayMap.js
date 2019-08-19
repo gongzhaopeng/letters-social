@@ -104,13 +104,13 @@ export default class DisplayMap extends Component {
                     ref={node => {
                         this.mapNode = node;
                     }}
+                >
                     {!this.state.mapLoaded && (
                         <img className="map"
-                             src={this.generateStaticMapImage(this.state.location.lat, this.state.location.lng
-                             )}
-                             alt={this.state.location.name}/>
+                             src={this.generateStaticMapImage(this.state.location.lat, this.state.location.lng)}
+                             alt={this.state.location.name}
+                        />
                     )}
-                >
                 </div>
             </div>,
             this.props.displayOnly && (

@@ -2,7 +2,7 @@
  * Created by gongzhaopeng on 2019/8/19.
  */
 import React, {Component} from "react";
-import PropTypes from "prop­types";
+import PropTypes from "prop-types";
 import MapBox from "mapbox";
 
 export default class LocationTypeAhead extends Component {
