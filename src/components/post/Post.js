@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-
 import * as API from "../../shared/http";
 import UserHeader from "./UserHeader";
 import Content from "./Content";
@@ -8,6 +7,7 @@ import Image from "./Image";
 import Link from "./Link";
 import PostActionSection from "./PostActionSection";
 import Comments from "../comment/Comments";
+import DisplayMap from "../map/DisplayMap";
 import Loader from "../Loader";
 
 export class Post extends Component {
@@ -44,7 +44,7 @@ export class Post extends Component {
         API.fetchPost(id)
             .then(res => res.json())
             .then(post => {
-                this.setState(() => ({ post }));
+                this.setState(() => ({post}));
             });
     }
 
@@ -59,6 +59,7 @@ export class Post extends Component {
                 <Content post={this.state.post}/>
                 <Image post={this.state.post}/>
                 <Link link={this.state.post.link}/>
+                {this.state.post.location && <DisplayMap location={this.state.post.location}/>}
                 <PostActionSection showComments={this.state.showComments}/>
                 <Comments
                     comments={this.state.comments}
