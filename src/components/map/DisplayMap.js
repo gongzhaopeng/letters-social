@@ -93,7 +93,7 @@ export default class DisplayMap extends Component {
     }
 
     generateStaticMapImage(lat, lng) {
-        return `https://api.mapbox.com/styles/v1/mapbox/streets­ v10/static/${lat},${lng},12,0,0/600x175?access_token=${process.env.MAPBOX_API_TOKEN}`;
+        return `https://api.mapbox.com/styles/v1/mapbox/streets­v10/static/${lat},${lng},12,0,0/600x175?access_token=${process.env.MAPBOX_API_TOKEN}`;
     }
 
     render() {
