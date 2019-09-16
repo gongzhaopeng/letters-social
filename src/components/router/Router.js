@@ -6,7 +6,7 @@ import invariant from "invariant";
 
 export default class Router extends Component {
     static propTypes = {
-        children: PropTypes.array,
+        children: PropTypes.element,
         location: PropTypes.string.isRequired
     };
 
@@ -47,7 +47,7 @@ export default class Router extends Component {
     }
 
     addRoutes(routes, parent) {
-        React.children.forEach(
+        React.Children.forEach(
             routes,
             route => this.addRoute(route, parent)
         );

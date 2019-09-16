@@ -6,7 +6,7 @@ class Route extends Component {
     static propTypes = {
         path: PropTypes.string,
         component: PropTypes.oneOfType([
-            PropTypes.element,
+            PropTypes.elementType,
             PropTypes.func
         ])
     };
