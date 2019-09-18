@@ -12,6 +12,8 @@ import "./shared/service-worker";
 import "./shared/vendor";
 // NOTE: this isn't ES*-compliant/possible, but works because we use Webpack as a build tool
 import "./styles/styles.scss";
+import SinglePost from "./pages/SinglePost";
+import NotFound from "./pages/404";
 
 export const renderApp = (state, callback = () => {
 }) => {
@@ -19,6 +21,8 @@ export const renderApp = (state, callback = () => {
         <Router {...state}>
             <Route path="" component={App}>
                 <Route path='/' component={Home}/>
+                <Route path="/posts/:postId" component={SinglePost}/>
+                <Route path="*" component={NotFound}/>
             </Route>
         </Router>,
         document.getElementById("app"),
