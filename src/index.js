@@ -16,11 +16,12 @@ import SinglePost from "./pages/SinglePost";
 import NotFound from "./pages/404";
 import Login from "./pages/Login";
 import {firebase} from "./backend/core";
-import {getFirebaseUser, getFirebaseToken} from "./backend/auth";
+import {getFirebaseToken} from "./backend/auth";
 import * as API from "./shared/http";
 
 export const renderApp = (state, callback = () => {
 }) => {
+    console.log("State in renderApp: ", state);
     render(
         <Router {...state}>
             <Route path="" component={App}>
@@ -46,6 +47,7 @@ let state = {
     token: null
 };
 
+console.log("renderApp alpha...");
 renderApp(state);
 
 history.listen(location => {
@@ -53,10 +55,13 @@ history.listen(location => {
     state = Object.assign({}, state, {
         location: user ? location.pathname : '/login'
     });
+    console.log("renderApp beta...");
     renderApp(state);
 });
 
-getFirebaseUser().then(async user => {
+firebase.auth().onAuthStateChanged(async user => {
+    console.log("Auth state changed...");
+    console.log("Github user: ", user);
     if (!user) {
         state = {
             location: state.location,
@@ -65,6 +70,7 @@ getFirebaseUser().then(async user => {
             }
         };
 
+        console.log("renderApp gamma...");
         return renderApp(state, () => {
             history.push('/login');
         });
@@ -94,5 +100,6 @@ getFirebaseUser().then(async user => {
         },
         token
     });
+    console.log("renderApp epsilon...");
     renderApp(state);
 });
