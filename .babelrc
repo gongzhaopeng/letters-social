@@ -1,8 +1,13 @@
 {
     "env": {
         "development": {
-            "presets": ["react-app", "env"],
-            "plugins": ["transform-class-properties"]
+            "presets": [
+                "react-app",
+                "env"
+            ],
+            "plugins": [
+                "transform-class-properties"
+            ]
         },
         "production": {
             "presets": [
@@ -11,13 +16,27 @@
                     "env",
                     {
                         "targets": {
-                            "browsers": ["last 5 versions", "safari >= 7"],
+                            "browsers": [
+                                "last 5 versions",
+                                "safari >= 7"
+                            ],
                             "node": "current"
                         }
                     }
                 ]
             ],
-            "plugins": ["transform-class-properties"]
+            "plugins": [
+                "transform-class-properties"
+            ]
+        },
+        "test": {
+            "presets": [
+                "react-app",
+                "env"
+            ],
+            "plugins": [
+                "transform-class-properties"
+            ]
         }
     }
 }
