@@ -1,11 +1,11 @@
 import React from "react";
-import {render} from "react-dom";
+import { render } from "react-dom";
 
 import App from "./app";
 import Home from "./pages/Home";
 import Router from "./components/router/Router";
 import Route from "./components/router/Route";
-import {history} from "./history/history";
+import { history } from "./history/history";
 
 import "./shared/crash";
 import "./shared/service-worker";
@@ -15,9 +15,11 @@ import "./styles/styles.scss";
 import SinglePost from "./pages/SinglePost";
 import NotFound from "./pages/404";
 import Login from "./pages/Login";
-import {firebase} from "./backend/core";
-import {getFirebaseToken} from "./backend/auth";
+import { firebase } from "./backend/core";
+import { getFirebaseToken } from "./backend/auth";
 import * as API from "./shared/http";
+
+import "./store/exampleUse";    // TODO to remove this.
 
 export const renderApp = (state, callback = () => {
 }) => {
@@ -53,7 +55,7 @@ renderApp(state);
 history.listen(location => {
     const user = firebase.auth().currentUser;
     state = Object.assign({}, state, {
-        location: user ? location.pathname : '/login'
+        location: user ? location.pathname : "/login"
     });
     console.log("renderApp beta...");
     renderApp(state);
@@ -72,7 +74,7 @@ firebase.auth().onAuthStateChanged(async user => {
 
         console.log("renderApp gamma...");
         return renderApp(state, () => {
-            history.push('/login');
+            history.push("/login");
         });
     }
 
@@ -90,7 +92,7 @@ firebase.auth().onAuthStateChanged(async user => {
     } else {
         renderUser = await res.json();
     }
-    history.push('/');
+    history.push("/");
     state = Object.assign({}, state, {
         user: {
             name: renderUser.name,
