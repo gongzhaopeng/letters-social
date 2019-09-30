@@ -49,3 +49,18 @@ export function unlike(postId) {
     };
 }
 
+export function createNewPost(post) {
+    return (dispatch, getState) => {
+        const { user } = getState();
+        post.userId = user.id;
+        return API.createPost(post)
+            .then(res => res.json())
+            .then(newPost => {
+                dispatch({
+                    type: types.posts.CREATE,
+                    post: newPost
+                });
+            })
+            .catch(err => dispatch(createError(err)));
+    };
+}
