@@ -1,9 +1,9 @@
 import parseLinkHeader from "parse-link-header";
 
-import * as types from "../contstants/types";
+import * as types from "../constants/types";
 import * as API from "../shared/http";
-import { createError } from "./error";
-import { getCommentsForPost } from "./comments";
+import {createError} from "./error";
+import {getCommentsForPost} from "./comments";
 
 export function updateAvailablePosts(posts) {
     return {
@@ -21,7 +21,7 @@ export function updatePaginationLinks(links) {
 
 export function like(postId) {
     return (dispatch, getState) => {
-        const { user } = getState();
+        const {user} = getState();
         return API.likePost(postId, user.id)
             .then(res => res.json())
             .then(post => {
@@ -36,7 +36,7 @@ export function like(postId) {
 
 export function unlike(postId) {
     return (dispatch, getState) => {
-        const { user } = getState();
+        const {user} = getState();
         return API.unlikePost(postId, user.id)
             .then(res => res.json())
             .then(post => {
@@ -51,7 +51,7 @@ export function unlike(postId) {
 
 export function createNewPost(post) {
     return (dispatch, getState) => {
-        const { user } = getState();
+        const {user} = getState();
         post.userId = user.id;
         return API.createPost(post)
             .then(res => res.json())
@@ -60,6 +60,33 @@ export function createNewPost(post) {
                     type: types.posts.CREATE,
                     post: newPost
                 });
+            })
+            .catch(err => dispatch(createError(err)));
+    };
+}
+
+export function getPostForPage(page = 'first') {
+    return (dispatch, getState) => {
+        const {pagination} = getState();
+        const endpoint = pagination[page];
+        return API.fetchPost(endpoint)
+            .then(res => {
+                const links = parseLinkHeader(res.headers.get('Link'));
+                return res.json().then(posts => {
+                    dispatch(updatePaginationLinks(links));
+                    dispatch(updateAvailablePosts(posts));
+                });
+            }).catch(err => dispatch(createError(err)));
+    };
+}
+
+export function loadPost(postId) {
+    return dispatch => {
+        return API.fetchPost(postId)
+            .then(res => res.json())
+            .then(post => {
+                dispatch(updateAvailablePosts([post]));
+                dispatch(getCommentsForPost(postId));
             })
             .catch(err => dispatch(createError(err)));
     };

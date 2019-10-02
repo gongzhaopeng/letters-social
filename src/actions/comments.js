@@ -1,6 +1,6 @@
-import * as types from "../contstants/types";
+import * as types from "../constants/types";
 import * as API from "../shared/http";
-import { createError } from "./error";
+import {createError} from "./error";
 
 export function showComments(postId) {
     return {
@@ -42,6 +42,6 @@ export function getCommentsForPost(postId) {
         return API.fetchCommentsForPost(postId)
             .then(res => res.json())
             .then(comments => dispatch(updateAvailableComments(comments)))
-            .cache(err => dispatch(createError(err)));
+            .catch(err => dispatch(createError(err)));
     };
 }

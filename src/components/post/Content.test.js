@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import {shallow} from "enzyme";
 import renderer from "react-test-renderer";
 import Content from "./Content";
 
@@ -21,7 +21,6 @@ describe("<Content/>", () => {
             };
             const component = renderer.create(<Content post={mockPost}/>);
             const tree = component.toJSON();
-            console.log(tree);
             expect(tree).toMatchSnapshot();
         });
     });

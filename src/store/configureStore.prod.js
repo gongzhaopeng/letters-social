@@ -1,6 +1,7 @@
 import thunk from "redux-thunk";
-import { createStore, compose, applyMiddleware } from "redux";
+import {createStore, compose, applyMiddleware} from "redux";
 import rootReducer from "../reducers/root";
+import crashReporting from '../middleware/crash';
 
 let store;
 export default function configureStore(initialState) {
@@ -10,7 +11,7 @@ export default function configureStore(initialState) {
     store = createStore(
         rootReducer,
         initialState,
-        compose(applyMiddleware(thunk))
+        compose(applyMiddleware(thunk, crashReporting))
     );
     return store;
 }

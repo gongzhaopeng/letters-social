@@ -1,4 +1,4 @@
-import * as types from "../contstants/types";
+import * as types from "../constants/types";
 
 export function createError(error, info) {
     return {
