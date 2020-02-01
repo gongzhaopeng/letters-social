@@ -6,7 +6,7 @@ import * as API from "../shared/http";
 import {history} from '../history/history';
 import {createError} from './error';
 import {loading, loaded} from './loading';
-import {getFirebaseUser, loginWithGithub, logUserOut getFirebaseToken} from '../backend/auth';
+import {getFirebaseUser, loginWithGithub, logUserOut, getFirebaseToken} from '../backend/auth';
 
 export function loginSuccess(user, token) {
     return {
